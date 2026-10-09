@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitap Al — Кітап дүкені</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="authPage" class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">⚡ <span>Kitap Al</span></div>
+
+    <div id="loginBox">
+      <h1>Қош келдіңіз!</h1>
+      <p class="auth-description">Аккаунтыңызға кіріңіз</p>
+
+      <form id="loginForm">
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="example@gmail.com" required>
+
+        <label>Құпия сөз</label>
+        <input id="loginPassword" type="password" placeholder="Құпия сөзіңіз" required>
+
+        <button class="auth-btn" type="submit">Жүйеге кіру ⚡</button>
+      </form>
+
+      <p id="loginMessage" class="message"></p>
+
+      <p class="switch-text">
+        Аккаунтыңыз жоқ па?
+        <button type="button" id="showRegister">Тіркелу</button>
+      </p>
+    </div>
+
+    <div id="registerBox" class="hidden">
+      <h1>Тіркелу</h1>
+      <p class="auth-description">Kitap Al платформасына қосылыңыз</p>
+
+      <form id="registerForm">
+        <label>Аты-жөніңіз</label>
+        <input id="registerName" type="text" placeholder="Аты-жөніңіз" required>
+
+        <label>Email</label>
+        <input id="registerEmail" type="email" placeholder="example@gmail.com" required>
+
+        <label>Телефон</label>
+        <input id="registerPhone" type="tel" placeholder="+7 700 000 00 00" required>
+
+        <label>Құпия сөз</label>
+        <input id="registerPassword" type="password" placeholder="Кемінде 6 таңба" minlength="6" required>
+
+        <label>Құпия сөзді қайталаңыз</label>
+        <input id="registerPassword2" type="password" placeholder="Құпия сөзді қайталаңыз" minlength="6" required>
+
+        <button class="auth-btn" type="submit">Тіркелу ⚡</button>
+      </form>
+
+      <p id="registerMessage" class="message"></p>
+
+      <p class="switch-text">
+        Аккаунтыңыз бар ма?
+        <button type="button" id="showLogin">Кіру</button>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="logo">⚡ <span>Kitap Al</span></div>
+
+    <nav>
+      <button class="nav-link active" data-page="dashboard">🏠 <span>Басты бет</span></button>
+      <button class="nav-link" data-page="books">📚 <span>Кітаптар</span></button>
+      <button class="nav-link" data-page="categories">🗂️ <span>Санаттар</span></button>
+      <button class="nav-link" data-page="orders">📦 <span>Тапсырыстар</span></button>
+      <button class="nav-link" data-page="favorites">❤️ <span>Таңдаулылар</span></button>
+      <button class="nav-link" data-page="cart">🛒 <span>Себет</span><b id="cartCount">0</b></button>
+      <button class="nav-link" data-page="profile">👤 <span>Профиль</span></button>
+    </nav>
+
+    <button id="logoutBtn" class="logout">🚪 Шығу</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-logo">⚡ Kitap Al</div>
+      <div class="top-user">
+        <div class="avatar">👤</div>
+        <div><strong id="topUserName">Оқырман</strong><small>Оқырман</small></div>
+      </div>
+    </header>
+
+    <section id="dashboardPage" class="page active-page">
+      <div class="page-header">
+        <div><h1>Басты бет</h1><p>Кітап әлеміне қош келдіңіз!</p></div>
+        <button class="primary-btn" id="dashboardSearchBtn">🔎 Кітап іздеу</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card"><span>Каталогтағы кітап</span><strong>1,450+</strong></div>
+        <div class="stat-card"><span>Авторлар</span><strong>320+</strong></div>
+        <div class="stat-card"><span>Оқырмандар</span><strong>8,500</strong></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><h2>Негізгі санаттар</h2></div>
+        <div class="categories">
+          <button class="category-card" data-category="Көркем әдебиет">📚<b>Көркем әдебиет</b><span>Роман, повесть, әңгіме</span></button>
+          <button class="category-card" data-category="IT">💻<b>IT және технология</b><span>Бағдарламалау, AI, дизайн</span></button>
+          <button class="category-card" data-category="Ғылым">🧠<b>Білім және ғылым</b><span>Оқу, ғылым, зерттеу</span></button>
+          <button class="category-card" data-category="Даму">🌱<b>Өзін-өзі дамыту</b><span>Бизнес, психология</span></button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><h2>Танымал кітаптар</h2></div>
+        <div id="dashboardBooks" class="books-grid"></div>
+      </div>
+    </section>
+
+    <section id="booksPage" class="page">
+      <div class="page-header"><div><h1>Кітаптар</h1><p>Өзіңізге ұнаған кітапты таңдаңыз</p></div></div>
+      <div class="search-box"><input id="bookSearch" placeholder="Кітап немесе автор іздеу..."> 🔎</div>
+      <div id="filterButtons" class="filter-buttons">
+        <button class="filter active" data-filter="all">Барлығы</button>
+        <button class="filter" data-filter="Көркем әдебиет">Көркем әдебиет</button>
+        <button class="filter" data-filter="IT">IT</button>
+        <button class="filter" data-filter="Ғылым">Ғылым</button>
+        <button class="filter" data-filter="Даму">Даму</button>
+      </div>
+      <div id="allBooks" class="books-grid"></div>
+    </section>
+
+    <section id="categoriesPage" class="page">
+      <div class="page-header"><div><h1>Санаттар</h1><p>Қызығушылығыңызға қарай кітап таңдаңыз</p></div></div>
+      <div class="large-categories">
+        <button class="large-category" data-category="Көркем әдебиет">📚<h2>Көркем әдебиет</h2><p>350+ кітап</p></button>
+        <button class="large-category" data-category="IT">💻<h2>IT және технология</h2><p>240+ кітап</p></button>
+        <button class="large-category" data-category="Ғылым">🧠<h2>Білім және ғылым</h2><p>420+ кітап</p></button>
+        <button class="large-category" data-category="Даму">🌱<h2>Өзін-өзі дамыту</h2><p>180+ кітап</p></button>
+      </div>
+    </section>
+
+    <section id="ordersPage" class="page">
+      <div class="page-header"><div><h1>Тапсырыстар</h1><p>Сатып алған кітаптарыңыз</p></div></div>
+      <div id="ordersContainer"></div>
+    </section>
+
+    <section id="favoritesPage" class="page">
+      <div class="page-header"><div><h1>Таңдаулылар</h1><p>Ұнаған кітаптарыңыз</p></div></div>
+      <div id="favoritesContainer" class="books-grid"></div>
+    </section>
+
+    <section id="cartPage" class="page">
+      <div class="page-header"><div><h1>Себет</h1><p>Сатып алғыңыз келген кітаптар</p></div></div>
+      <div class="cart-layout">
+        <div id="cartContainer"></div>
+        <div class="cart-summary">
+          <h2>Тапсырыс</h2>
+          <div class="summary-row"><span>Кітаптар</span><strong id="cartTotal">0 ₸</strong></div>
+          <div class="summary-row"><span>Жеткізу</span><strong>Тегін</strong></div>
+          <hr>
+          <div class="summary-total"><span>Барлығы</span><strong id="finalTotal">0 ₸</strong></div>
+          <button id="checkoutBtn" class="checkout-btn">Тапсырыс беру</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="profilePage" class="page">
+      <div class="page-header"><div><h1>Профиль</h1><p>Жеке мәліметтеріңіз</p></div></div>
+      <div class="profile-card">
+        <div class="profile-avatar">👤</div>
+        <h2 id="profileName">Оқырман</h2>
+        <p id="profileEmail">-</p>
+        <div class="profile-info">
+          <div><span>Телефон</span><strong id="profilePhone">-</strong></div>
+          <div><span>Статус</span><strong>Белсенді</strong></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
